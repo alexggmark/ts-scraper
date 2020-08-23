@@ -6,21 +6,31 @@ interface ApiResponse {
 export default class DogApi  {
   limit: number
   element: string
+  button: string
   private apiUrl = 'https://dog.ceo/api/breeds/image/random'
 
-  constructor(limit: number, element: string) {
+  constructor(limit: number, element: string, button: string) {
     this.limit = limit
     this.element = element
+    this.button = button
   }
 
   updateDom(apiRes: ApiResponse): void {
+    while (this.imageElement.firstChild) {
+      this.imageElement.removeChild(this.imageElement.lastChild)
+    }
     const imgElement = document.createElement('img')
+    imgElement.className = 'dog-image'
     imgElement.setAttribute('src', apiRes.message)
-    this.selectElement.append(imgElement)
+    this.imageElement.append(imgElement)
   }
 
-  get selectElement(): Element {
+  get imageElement(): Element {
     return document.querySelector(this.element)
+  }
+
+  get updateElement(): Element {
+    return document.querySelector(this.button)
   }
 
   async fetchApi<T>(): Promise<T> {
@@ -33,9 +43,20 @@ export default class DogApi  {
     }
   }
 
-  async init(): Promise<void> {
+  setEventListeners(): void {
+    this.updateElement.addEventListener('click', () => {
+      this.fetchAndUpdateDom()
+    })
+  }
+
+  async fetchAndUpdateDom(): Promise<void> {
     const response = await this.fetchApi<ApiResponse>()
     this.updateDom(response)
+  }
+
+  init(): void {
+    this.fetchAndUpdateDom()
+    this.setEventListeners()
     return
   }
 }
