@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
+    "build": "webpack",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
