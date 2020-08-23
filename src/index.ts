@@ -1,5 +1,5 @@
 import DogApi from './components/dogApi'
 
-const apiRequest = new DogApi(3)
+const apiRequest = new DogApi(3, '#app')
 
-console.log(apiRequest.doggy())
+apiRequest.init()

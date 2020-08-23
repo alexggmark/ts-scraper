@@ -5,20 +5,37 @@ interface ApiResponse {
 
 export default class DogApi  {
   limit: number
+  element: string
   private apiUrl = 'https://dog.ceo/api/breeds/image/random'
 
-  constructor(limit: number) {
+  constructor(limit: number, element: string) {
     this.limit = limit
+    this.element = element
   }
 
-  async fetchApi(): Promise<Response> {
-    return await fetch(this.apiUrl)
-      .then((res) => {
-        return res.json()
-      })
+  updateDom(apiRes: ApiResponse): void {
+    const imgElement = document.createElement('img')
+    imgElement.setAttribute('src', apiRes.message)
+    this.selectElement.append(imgElement)
   }
 
-  async doggy(): Promise<Response> {
-    return await this.fetchApi()
+  get selectElement(): Element {
+    return document.querySelector(this.element)
+  }
+
+  async fetchApi<T>(): Promise<T> {
+    try {
+      const response = await fetch(this.apiUrl)
+      const body = await response.json()
+      return body
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+  async init(): Promise<void> {
+    const response = await this.fetchApi<ApiResponse>()
+    this.updateDom(response)
+    return
   }
 }
