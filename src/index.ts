@@ -1,9 +1,5 @@
-function component() {
-  const element = document.createElement('div')
+import DogApi from './components/dogApi'
 
-  element.innerHTML = 'TEST'
+const apiRequest = new DogApi(3)
 
-  return element
-}
-
-document.body.appendChild(component())
+console.log(apiRequest.doggy())
