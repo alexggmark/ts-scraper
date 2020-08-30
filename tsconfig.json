@@ -8,6 +8,7 @@
     "allowJs": true,
   },
   "exclude": [
-    "*.config.js"
+    "*.config.js",
+    "./backups/"
   ]
 }
