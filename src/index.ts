@@ -1,7 +1,16 @@
-import { NewsController } from './controllers/news.controller'
-import { NewsModel } from './models/news.model'
-import { NewsView } from './views/news.view'
+// import { CorsAnywhere } from 'cors-anywhere'
 
-const app = new NewsController(new NewsModel(), new NewsView())
+async function scraperTest(): Promise<string> {
+  // document.domain = 'https://www.bbc.co.uk'
+  const response = await fetch('https://www.bbc.co.uk/news', {
+    headers: {
+      'Access-Control-Allow-Origin': 'https://www.bbc.co.uk/'
+    }
+  })
+  console.log(response)
+  const text = await response.text()
+  console.log(text)
+  return text
+}
 
-app.init()
+scraperTest()
