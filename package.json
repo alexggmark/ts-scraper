@@ -22,10 +22,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "start:server": "webpack-dev-server --config webpack.server.config.js",
-    "build": "webpack",
-    "build:server": "webpack --config webpack.server.config.js",
-    "lint": "eslint . --ext .ts"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
