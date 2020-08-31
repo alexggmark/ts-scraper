@@ -34,8 +34,6 @@ const routing = (req, res) => {
                 body += chunk;
             });
             response.on('end', () => {
-                console.log(domParsing_1.default(body));
-                // res.write(JSON.stringify(domParser(body)))
                 res.end(JSON.stringify(domParsing_1.default(body)));
             });
         }).on('error', (e) => {

@@ -11,8 +11,6 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
         body += chunk
       })
       response.on('end', () => {
-        console.log(domParser(body))
-        // res.write(JSON.stringify(domParser(body)))
         res.end(JSON.stringify(domParser(body)))
       })
     }).on('error', (e) => {
