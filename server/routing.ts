@@ -3,7 +3,8 @@ import domParser from './domParsing'
 
 const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
   if (req.url === '/bbc') {
-    console.log('/bbc')
+    const domHeading = '.gs-c-promo-heading'
+    const domTitle = '.gs-c-promo-heading__title'
     http.get('http://localhost:3000/https://www.bbc.co.uk/news', (response: http.IncomingMessage) => {
       response.setEncoding('utf8')
       let body = ''
@@ -11,7 +12,8 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
         body += chunk
       })
       response.on('end', () => {
-        res.end(JSON.stringify(domParser(body)))
+        const fetchResult = JSON.stringify(domParser(body, domHeading, domTitle))
+        res.end(fetchResult)
       })
     }).on('error', (e) => {
       console.log(`Error: ${e.message}`)
