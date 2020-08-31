@@ -22,28 +22,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const corsAnywhere = __importStar(require("cors-anywhere"));
 const http = __importStar(require("http"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const routing_1 = __importDefault(require("./routing"));
-dotenv_1.default.config();
-const port = 3000 || Number(process.env.PORT);
-const serverPort = 4000;
-corsAnywhere.createServer({
-    originWhitelist: [],
-    // I need to figure out why this might be needed
-    // requireHeader: ['origin', 'x-requested-with'],
-    removeHeaders: ['cookie', 'cookie2']
-}).listen(port, () => {
-    console.log('Running CORS Anywhere on ' + port);
-});
-http.createServer((req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    routing_1.default(req, res);
-}).listen(serverPort, () => {
-    console.log('Running HTTP Server');
-});
-//# sourceMappingURL=index.js.map
+const domParsing_1 = __importDefault(require("./domParsing"));
+const routing = (req, res) => {
+    if (req.url === '/bbc') {
+        console.log('/bbc');
+        http.get('http://localhost:3000/https://www.bbc.co.uk/news', (response) => {
+            response.setEncoding('utf8');
+            let body = '';
+            response.on('data', (chunk) => {
+                body += chunk;
+            });
+            response.on('end', () => {
+                console.log(domParsing_1.default(body));
+                // res.write(JSON.stringify(domParser(body)))
+                res.end(JSON.stringify(domParsing_1.default(body)));
+            });
+        }).on('error', (e) => {
+            console.log(`Error: ${e.message}`);
+        });
+    }
+};
+exports.default = routing;
+//# sourceMappingURL=routing.js.map
