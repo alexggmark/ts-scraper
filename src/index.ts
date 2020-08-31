@@ -4,9 +4,9 @@ import {
 
 async function scraperTest(): Promise<string> {
   try {
-    const response = await fetch('http://localhost:4000/bbc')
+    const response = await fetch(`${API_URL}/bbc`)
     const text = await response.text()
-    console.log(text)
+    console.log(text.json())
     return text
   } catch (err) {
     console.log(err)
