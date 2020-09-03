@@ -23,27 +23,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const corsAnywhere = __importStar(require("cors-anywhere"));
-const http = __importStar(require("http"));
+// import * as http from 'http'
+const https = __importStar(require("https"));
+const fs = __importStar(require("fs"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const routing_1 = __importDefault(require("./routing"));
 dotenv_1.default.config();
+const isDev = process.env.NODE_ENV !== 'production';
 const port = 3000 || Number(process.env.PORT);
 const serverPort = 4000;
-corsAnywhere.createServer({
+const options = isDev ? {
+    key: fs.readFileSync('./server.key'),
+    cert: fs.readFileSync('./server.cert')
+} : {};
+corsAnywhere.createServer(options, {
     originWhitelist: [],
-    // I need to figure out why this might be needed
-    // requireHeader: ['origin', 'x-requested-with'],
     removeHeaders: ['cookie', 'cookie2']
 }).listen(port, () => {
     console.log('Running CORS Anywhere on ' + port);
 });
-http.createServer((req, res) => {
+https.createServer(options, (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Request-Method', '*');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
     res.setHeader('Access-Control-Allow-Headers', '*');
     routing_1.default(req, res);
 }).listen(serverPort, () => {
-    console.log('Running HTTP Server');
+    console.log('Running HTTP Server ' + serverPort);
 });
 //# sourceMappingURL=index.js.map
