@@ -24,24 +24,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http = __importStar(require("http"));
 const domParsing_1 = __importDefault(require("./domParsing"));
+const constants_1 = require("./constants");
+const sourceObject = [
+    {
+        route: '/bbc',
+        domHeading: '.gs-c-promo-heading',
+        domTitle: '.gs-c-promo-heading__title',
+        url: `${constants_1.CORS_URL}/https://www.bbc.co.uk/news`
+    }
+];
 const routing = (req, res) => {
-    if (req.url === '/bbc') {
-        const domHeading = '.gs-c-promo-heading';
-        const domTitle = '.gs-c-promo-heading__title';
-        http.get('http://localhost:3000/https://www.bbc.co.uk/news', (response) => {
+    sourceObject.map((item) => {
+        if (req.url !== item.route) {
+            return;
+        }
+        http.get(item.url, (response) => {
             response.setEncoding('utf8');
             let body = '';
             response.on('data', (chunk) => {
                 body += chunk;
             });
             response.on('end', () => {
-                const fetchResult = JSON.stringify(domParsing_1.default(body, domHeading, domTitle));
+                const fetchResult = JSON.stringify(domParsing_1.default(body, item.domHeading, item.domTitle));
                 res.end(fetchResult);
             });
         }).on('error', (e) => {
             console.log(`Error: ${e.message}`);
         });
-    }
+    });
 };
 exports.default = routing;
 //# sourceMappingURL=routing.js.map
