@@ -9,6 +9,7 @@ const sourceObject = [
     route: '/bbc',
     domHeading: '.gs-c-promo-heading',
     domTitle: '.gs-c-promo-heading__title',
+    domContentText: '.story-body__inner > p',
     url: `${CORS_URL}/https://www.bbc.co.uk/news`
   }
 ]
@@ -24,7 +25,14 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
         body += chunk
       })
       response.on('end', () => {
-        const fetchResult = JSON.stringify(domParser(body, item.domHeading, item.domTitle))
+        const fetchResult = JSON.stringify(
+          domParser(
+            body,
+            item.domHeading,
+            item.domTitle,
+            item.domContentText
+          )
+        )
         res.end(fetchResult)
       })
     }).on('error', (e) => {

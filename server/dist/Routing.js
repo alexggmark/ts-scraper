@@ -30,6 +30,7 @@ const sourceObject = [
         route: '/bbc',
         domHeading: '.gs-c-promo-heading',
         domTitle: '.gs-c-promo-heading__title',
+        domContentText: '.story-body__inner > p',
         url: `${constants_1.CORS_URL}/https://www.bbc.co.uk/news`
     }
 ];
@@ -45,7 +46,7 @@ const routing = (req, res) => {
                 body += chunk;
             });
             response.on('end', () => {
-                const fetchResult = JSON.stringify(domParsing_1.default(body, item.domHeading, item.domTitle));
+                const fetchResult = JSON.stringify(domParsing_1.default(body, item.domHeading, item.domTitle, item.domContentText));
                 res.end(fetchResult);
             });
         }).on('error', (e) => {
