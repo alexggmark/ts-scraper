@@ -24,16 +24,14 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
       response.on('data', (chunk: string) => {
         body += chunk
       })
-      response.on('end', () => {
-        const fetchResult = JSON.stringify(
-          domParser(
-            body,
-            item.domHeading,
-            item.domTitle,
-            item.domContentText
-          )
+      response.on('end', async () => {
+        const fetchResult = await domParser(
+          body,
+          item.domHeading,
+          item.domTitle,
+          item.domContentText
         )
-        res.end(fetchResult)
+        res.end(JSON.stringify(fetchResult))
       })
     }).on('error', (e) => {
       console.log(`Error: ${e.message}`)

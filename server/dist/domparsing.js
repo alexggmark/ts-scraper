@@ -31,14 +31,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsdom_1 = require("jsdom");
 const http = __importStar(require("http"));
 const constants_1 = require("./constants");
+const emptyNulls = {
+    title: null,
+    url: null,
+    content: null
+};
 function domContentPromise(link, content) {
-    console.log(`ContentPromise: Link: ${link}`);
-    return new Promise((resolve, reject) => {
-        http.get(`${constants_1.CORS_URL}/${link}`, (response) => {
-            // console.log(`Connected: ${CORS_URL}/${link}`)
+    return new Promise((resolve) => {
+        http.get(`${constants_1.CORS_URL}/https://www.bbc.co.uk${link}`, (response) => {
             response.setEncoding('utf8');
-            let body;
-            let domContentString;
+            let body = '';
+            let domContentString = '';
             response.on('data', (chunk) => {
                 body += chunk;
             });
@@ -50,8 +53,6 @@ function domContentPromise(link, content) {
                 });
                 resolve(domContentString);
             });
-        }).on('error', (e) => {
-            reject(e.message);
         });
     });
 }
@@ -60,24 +61,31 @@ function domParser(body, link, title, content) {
         const dom = new jsdom_1.JSDOM(body);
         const response = dom.window.document.querySelectorAll(link);
         const hrefStore = [];
-        const data = yield Promise.all(Object.keys(response).map((key) => __awaiter(this, void 0, void 0, function* () {
-            if (hrefStore.find((item) => item === response[key].href)) {
-                return {
-                    title: null,
-                    url: null,
-                    content: null
-                };
-            }
-            hrefStore.push(response[key].href);
-            // myPromise = await domContentPromise(response[key].href, content)
-            return {
-                title: response[key].querySelector(title).textContent,
-                url: response[key].href,
-                content: yield domContentPromise(response[key].href, content)
-            };
-        })));
-        console.log(data);
-        return data;
+        const data = yield Promise.all(Object.keys(response).map((key) => {
+            return new Promise((resolve) => {
+                if (!response[key].href || hrefStore.find((item) => item === response[key].href)) {
+                    resolve(emptyNulls);
+                }
+                hrefStore.push(response[key].href);
+                domContentPromise(response[key].href, content)
+                    .then((res) => {
+                    console.log(res === null || res === void 0 ? void 0 : res.slice(0, 20));
+                    resolve({
+                        title: response[key].querySelector(title).textContent,
+                        url: response[key].href,
+                        content: res
+                    });
+                });
+            });
+        }));
+        console.log('Finished?');
+        console.log('Finished?');
+        console.log('Finished?');
+        console.log('Finished?');
+        console.log('Finished?');
+        console.log('Finished?');
+        const result = data.filter(item => item.title !== null);
+        return result;
     });
 }
 exports.default = domParser;

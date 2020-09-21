@@ -10,14 +10,18 @@ interface DataStructure {
   content: string | null
 }
 
+const emptyNulls = {
+  title: null,
+  url: null,
+  content: null
+}
+
 function domContentPromise(link: string, content: string): Promise<string | null> {
-  console.log(`ContentPromise: Link: ${link}`)
-  return new Promise((resolve, reject) => {
-    http.get(`${CORS_URL}/${link}`, (response: http.IncomingMessage) => {
-      // console.log(`Connected: ${CORS_URL}/${link}`)
+  return new Promise((resolve) => {
+    http.get(`${CORS_URL}/https://www.bbc.co.uk${link}`, (response: http.IncomingMessage) => {
       response.setEncoding('utf8')
-      let body: string
-      let domContentString: string
+      let body = ''
+      let domContentString = ''
       response.on('data', (chunk: string) => {
         body += chunk
       })
@@ -29,8 +33,6 @@ function domContentPromise(link: string, content: string): Promise<string | null
         })
         resolve(domContentString)
       })
-    }).on('error', (e) => {
-      reject(e.message)
     })
   })
 }
@@ -40,23 +42,32 @@ export default async function domParser(body: string, link: string, title: strin
   const response = dom.window.document.querySelectorAll(link)
   const hrefStore: string[] = []
 
-  const data = await Promise.all(Object.keys(response).map(async (key) => {
-    if (hrefStore.find((item) => item === response[key].href)) {
-      return {
-        title: null,
-        url: null,
-        content: null
+  const data = await Promise.all(Object.keys(response).map((key) => {
+    return new Promise<DataStructure>((resolve) => {
+      if (!response[key].href || hrefStore.find((item) => item === response[key].href)) {
+        resolve(emptyNulls)
       }
-    }
-    hrefStore.push(response[key].href)
-    // myPromise = await domContentPromise(response[key].href, content)
-    return {
-      title: response[key].querySelector(title).textContent,
-      url: response[key].href,
-      content: await domContentPromise(response[key].href, content)
-    }
+      hrefStore.push(response[key].href)
+      domContentPromise(response[key].href, content)
+        .then((res) => {
+          console.log(res?.slice(0, 20))
+          resolve({
+            title: response[key].querySelector(title).textContent,
+            url: response[key].href,
+            content: res
+          })
+        })
+    })
   }))
 
-  console.log(data)
-  return data
+  console.log('Finished?')
+  console.log('Finished?')
+  console.log('Finished?')
+  console.log('Finished?')
+  console.log('Finished?')
+  console.log('Finished?')
+
+  const result = data.filter(item => item.title !== null)
+
+  return result
 }
