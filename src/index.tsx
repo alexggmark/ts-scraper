@@ -2,7 +2,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import { render } from 'react-dom'
 import { scraperTest } from './WebScraper'
 import { truncateString } from './utils'
+import './index.css'
 import './tailwind.output.css'
+// import * as loader from './loader.gif'
+const loader = require('./loader.gif')
 
 const blankObject = [
   { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
@@ -23,21 +26,28 @@ const blankObject = [
 
 const App = () => {
   const [loading, setLoading] = useState(false)
+  const [counter, setCounter] = useState(0)
   const [articles, setArticles] = useState([])
   const [articlesCache, setArticlesCache] = useState([])
   const [blockedCounter, setBlockedCounter] = useState(0)
   const filterInput = useRef()
 
-  // useEffect(() => {
-  //   scrapeAndCompile()
-  // }, [])
+  useEffect(() => {
+    scrapeAndCompile()
+  }, [])
 
   const scrapeAndCompile = async () => {
     setLoading(true)
+    let counterCache = 0
+    setInterval(() => {
+      counterCache++
+      setCounter(counterCache)
+    }, 1000)
     const scrapeResults = await scraperTest()
     const results = JSON.parse(scrapeResults)
     setArticlesCache(results)
     setArticles(results)
+    setCounter(0)
     setLoading(false)
   }
 
@@ -68,7 +78,17 @@ const App = () => {
           p-6
         "
       >
-        <h1 className="text-white text-2xl">Ts-Scraper</h1>
+        <h1
+          className="
+            text-white
+            text-3xl
+            text-right
+            font-serif
+            font-thin
+          "
+        >
+          NewsWithout.
+        </h1>
       </header>
       <section
         className="
@@ -82,28 +102,24 @@ const App = () => {
             max-w-3xl
             mx-auto
             flex
-            flex-row
+            sm:flex-column
+            md:flex-row
             items-center
             py-3
             mb-6
           "
         >
           {loading ? (
-            <div className="w-full text-center">
-              'LOADING'
+            <div className="w-full flex justify-center">
+              <img className="w-16" src={loader.default} />
             </div>
           ) : (
             <>
-              <div className="w-1/2">
-                <h3>Filter <strong>out</strong> news based on search term</h3>
-                <p>Blocking: {blockedCounter}</p>
-              </div>
-              <div className="w-1/2">
+              <div className="w-1/2 md:w-full pr-2">
                 <input
                   className="
                     border
-                    border-black
-                    border-dotted
+                    border-gray-300
                     w-full
                     rounded-full
                     outline-none
@@ -112,20 +128,34 @@ const App = () => {
                   "
                   ref={filterInput}
                   onInput={handleInput}
-                  placeholder="Enter filter term!"
+                  placeholder="Enter filter term"
                 />
+              </div>
+              <div className="w-1/2 md:w-full">
+                <div
+                  className="
+                    rounded-sm
+                    bg-gray-100
+                    px-3
+                    py-2
+                  "
+                >
+                  <h3>Filter <strong>out</strong> news based on search term</h3>
+                  <p>Blocking: {blockedCounter}</p>
+                </div>
               </div>
             </>
           )}
         </div>
       </section>
       {loading ? (
-        <>
-          'LOADING'
-        </>
+        <div className="w-full text-center px-3">
+          <p className="text-lg text-red-500">Scraping news sites and building list {counter}s</p>
+          <p className="text-xs text-gray-500">This can take up to 30 seconds</p>
+        </div>
       ) : (
         <>
-          {blankObject.map((item, index) => {
+          {articles.map((item, index) => {
             return (
               <div
                 className="
@@ -149,7 +179,7 @@ const App = () => {
               >
                 <a href={`https://www.bbc.co.uk${item.url}`}>
                   <p className="text-lg">{item.title}</p>
-                  <p className="text-sm text-gray-400">{item.content ? truncateString(item.content, 120) : 'No preview text'}</p>
+                  <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
                 </a>
               </div>
             )

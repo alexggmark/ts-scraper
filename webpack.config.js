@@ -14,8 +14,19 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       }
-    ],
+    ]
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
