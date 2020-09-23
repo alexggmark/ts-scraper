@@ -56,8 +56,11 @@ const App = () => {
   }
 
   const filterResults = (string: string) => {
+    const searchString = string.toLowerCase()
     const filteredArticles = articlesCache.filter((item) => {
-      return !item.title.toLowerCase().includes(string) && !item.content.toLowerCase().includes(string)
+      const itemTitle = item.title.toLowerCase()
+      const itemContent = item.content.toLowerCase()
+      return !itemTitle.includes(searchString) && !itemContent.includes(searchString)
     })
     setBlockedCounter(articlesCache.length - filteredArticles.length)
     setArticles(filteredArticles)
