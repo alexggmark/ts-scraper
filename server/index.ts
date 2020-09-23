@@ -7,7 +7,7 @@ import routing from './routing'
 dotenv.config()
 
 const isDev = process.env.NODE_ENV !== 'production'
-const port: number = 3000 || Number(process.env.PORT)
+const port: number = Number(process.env.PORT) || 3000
 const serverPort = 4000
 
 const options = isDev ? {
