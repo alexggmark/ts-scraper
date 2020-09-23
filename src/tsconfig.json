@@ -6,7 +6,7 @@
     "target": "es6",
     "jsx": "react",
     "allowJs": true,
-    "strict": true,
+    "strict": false,
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
