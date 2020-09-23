@@ -25,7 +25,7 @@ const blankObject = [
 ]
 
 const App = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [counter, setCounter] = useState(0)
   const [articles, setArticles] = useState([])
   const [articlesCache, setArticlesCache] = useState([])
@@ -35,6 +35,10 @@ const App = () => {
   useEffect(() => {
     scrapeAndCompile()
   }, [])
+
+  const switchLoading = () => {
+    setLoading(!loading)
+  }
 
   const scrapeAndCompile = async () => {
     setLoading(true)
@@ -71,6 +75,7 @@ const App = () => {
 
   return (
     <div className="bg-gray-100">
+      {/* <button className="p-5" onClick={switchLoading}>SWITCH</button> */}
       <header
         className="
           max-w-100
@@ -82,30 +87,33 @@ const App = () => {
           className="
             text-white
             text-3xl
-            text-right
+            text-center
             font-serif
             font-thin
           "
         >
-          NewsWithout.
+          NewsWith<span className="text-red-500">out.</span>
         </h1>
       </header>
       <section
-        className="
-          bg-white
-          shadow-sm
+        className={`
           max-w-100
-        "
+          transition-colors
+          duration-200
+          ${loading ? 'bg-white' : 'bg-gray-600'}
+        `}
       >
         <div
           className="
             max-w-3xl
             mx-auto
             flex
-            sm:flex-column
+            flex-col-reverse
             md:flex-row
             items-center
             py-3
+            px-2
+            md:px-0
             mb-6
           "
         >
@@ -115,33 +123,38 @@ const App = () => {
             </div>
           ) : (
             <>
-              <div className="w-1/2 md:w-full pr-2">
+              <div className="w-full md:w-7/12 md:pr-2">
                 <input
                   className="
                     border
-                    border-gray-300
+                    border-white
+                    bg-transparent
                     w-full
                     rounded-full
                     outline-none
                     px-4
                     py-2
+                    text-white
+                    placeholder-white
                   "
                   ref={filterInput}
                   onInput={handleInput}
                   placeholder="Enter filter term"
                 />
               </div>
-              <div className="w-1/2 md:w-full">
+              <div className="w-full md:w-5/12 md:pl-2">
                 <div
                   className="
                     rounded-sm
-                    bg-gray-100
                     px-3
                     py-2
+                    md:mb-0
+                    mb-3
+                    text-white
                   "
                 >
-                  <h3>Filter <strong>out</strong> news based on search term</h3>
-                  <p>Blocking: {blockedCounter}</p>
+                  <h3 className="text-sm">Filter out news based on search term</h3>
+                  <p><span className="text-lg font-bold">Blocking: {blockedCounter} items</span></p>
                 </div>
               </div>
             </>
@@ -154,8 +167,9 @@ const App = () => {
           <p className="text-xs text-gray-500">This can take up to 30 seconds</p>
         </div>
       ) : (
-        <>
+        <div className="px-2">
           {articles.map((item, index) => {
+          // {blankObject.map((item, index) => {
             return (
               <div
                 className="
@@ -165,8 +179,6 @@ const App = () => {
                   max-w-3xl
                   mx-auto
                   my-2
-                  px-4
-                  py-3
                   bg-white
                   rounded-sm
                   shadow-sm
@@ -177,14 +189,18 @@ const App = () => {
                 "
                 key={index}
               >
-                <a href={`https://www.bbc.co.uk${item.url}`}>
-                  <p className="text-lg">{item.title}</p>
-                  <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
+                <a
+                  href={`https://www.bbc.co.uk${item.url}`}
+                >
+                  <div className="px-4 py-3">
+                    <p className="text-lg">{item.title}</p>
+                    <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
+                  </div>
                 </a>
               </div>
             )
           })}
-        </>
+        </div>
       )}
     </div>
   )
