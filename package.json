@@ -8,7 +8,7 @@
     "watch-node": "nodemon ./dist/index.js",
     "watch-ts": "tsc -w",
     "watch": "concurrently \"npm run watch-ts\" \"npm run watch-node\" --https",
-    "heroku-postbuild": "cd src && npm install npm && npm run build"
+    "heroku-postbuild": "cd src && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
