@@ -30,7 +30,7 @@ const App = () => {
   const [articles, setArticles] = useState([])
   const [articlesCache, setArticlesCache] = useState([])
   const [blockedCounter, setBlockedCounter] = useState(0)
-  const filterInput = useRef()
+  const filterInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     scrapeAndCompile()
