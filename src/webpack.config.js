@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './index.tsx',
   module: {
     rules: [
       {
@@ -43,7 +43,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'My App',
-      template: './src/index.html'
+      template: './index.html'
     })
   ]
 };

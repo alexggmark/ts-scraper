@@ -1,2 +1,4 @@
 /node_modules
-/dist/bundle.js
+/dist
+/server/server.key
+/server/server.cert

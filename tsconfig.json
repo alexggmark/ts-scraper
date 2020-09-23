@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
     "target": "es6",
-    "jsx": "react",
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "lib": ["dom.iterable", "dom", "es2015"]
   },
   "exclude": [
-    "*.config.js",
-    "./backups/",
-    "./server/"
+    "./src/",
+    "./node-modules"
   ]
 }

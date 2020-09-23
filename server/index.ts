@@ -11,8 +11,8 @@ const port: number = 3000 || Number(process.env.PORT)
 const serverPort = 4000
 
 const options = isDev ? {
-  key: fs.readFileSync('./server.key'),
-  cert: fs.readFileSync('./server.cert')
+  key: fs.readFileSync(__dirname + '/server.key'),
+  cert: fs.readFileSync(__dirname + '/server.cert')
 } : {};
 
 
