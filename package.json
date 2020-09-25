@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
+    "start": "npm install && tsc && node ./dist/index.js",
     "watch-node": "nodemon ./dist/index.js",
     "watch-ts": "tsc -w",
     "watch": "concurrently \"npm run watch-ts\" \"npm run watch-node\" --https",
@@ -20,9 +20,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsdom": "^16.4.0",
-    "tsc": "^1.20150623.0"
-  },
-  "devDependencies": {
+    "tsc": "^1.20150623.0",
     "@types/cheerio": "^0.22.21",
     "@types/express": "^4.17.7",
     "@types/jsdom": "^16.2.3",
