@@ -1,6 +1,6 @@
 // import * as corsAnywhere from 'cors-anywhere'
-// import * as http from 'http'
-import * as https from 'https'
+import * as http from 'http'
+// import * as https from 'https'
 import * as path from 'path'
 import * as fs from 'fs'
 import dotenv from 'dotenv'
@@ -27,7 +27,7 @@ const options = isDev ? {
 //   console.log('Running CORS Anywhere on ' + port)
 // })
 
-https.createServer(options, (req, res) => {
+http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 	res.setHeader('Access-Control-Request-Method', '*')
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
