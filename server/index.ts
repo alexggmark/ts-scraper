@@ -34,7 +34,7 @@ const options = isDev ? {
 
 http.createServer((req, res) => {
   res.end('TEST')
-}).listen(4000, () => {
+}).listen(serverPort, () => {
   console.log('Working')
 })
 // return;
