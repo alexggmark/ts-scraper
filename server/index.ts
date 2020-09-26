@@ -98,7 +98,6 @@ https.createServer(options, (req, res) => {
     console.log('REQ: image')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/505f876506e853fff8022de9e0384052.gif'))
     res.writeHead(200, {'Content-type': 'text/html'})
-    handleError(readStream)
     readStream.pipe(res)
   }
 
