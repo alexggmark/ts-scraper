@@ -1,20 +1,20 @@
 // import * as corsAnywhere from 'cors-anywhere'
 import * as http from 'http'
-import * as https from 'https'
+// import * as https from 'https'
 import * as path from 'path'
 import * as fs from 'fs'
 import dotenv from 'dotenv'
-// import routing from './routing'
+import routing from './routing'
 dotenv.config()
 
 const isDev = process.env.NODE_ENV !== 'production'
 // const port: number = Number(process.env.PORT) || 3000
 const serverPort = Number(process.env.PORT) || 4000
 
-const options = isDev ? {
-  key: fs.readFileSync(__dirname + '/server.key'),
-  cert: fs.readFileSync(__dirname + '/server.cert')
-} : {};
+// const options = isDev ? {
+//   key: fs.readFileSync(__dirname + '/server.key'),
+//   cert: fs.readFileSync(__dirname + '/server.cert')
+// } : {};
 
 // const options = isDev ? {
 //   key: fs.readFileSync(__dirname + '/server.key'),
@@ -43,33 +43,7 @@ http.createServer((req, res) => {
 	res.setHeader('Access-Control-Request-Method', '*')
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
 	res.setHeader('Access-Control-Allow-Headers', '*')
-  // routing(req, res)
-
-  /**
-   * Solution 1
-   */
-  // const stream = fs.createReadStream(path.join(__dirname, '/src/dist'));
-  // stream.on('error', () => {
-  //   console.log('Actually an error')
-  //   console.log(stream)
-  // })
-  // console.log(stream)
-  // stream.pipe(res)
-
-  /**
-   * Solution 2
-   */
-  // fs.readFile(path.join(__dirname, '/src/dist/index.html'), {encoding: 'utf-8'}, (err, data) => {
-  //   if (err) {
-  //     console.log(err)
-  //     res.writeHead(404)
-  //     res.end()
-  //   }
-  //   console.log(`${__dirname}/src/dist/index.html`)
-  //   console.log(data)
-  //   res.writeHead(200)
-  //   res.end(data)
-  // })
+  routing(req, res)
 
   /**
    * This is unbelievably unelegant, but for the sake of getting this working

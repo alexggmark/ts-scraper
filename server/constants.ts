@@ -1,1 +1,1 @@
-export const CORS_URL = 'http://localhost:3000'
+export const CORS_URL = 'https://cors-anywhere.herokuapp.com/'
