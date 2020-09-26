@@ -32,8 +32,6 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
 
       let body = ''
       response.on('data', (chunk: string) => {
-        console.log('### DATA OUTPUT')
-        console.log(chunk)
         body += chunk
       })
       response.on('end', async () => {

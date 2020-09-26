@@ -12,8 +12,6 @@ http.createServer((req, res) => {
 	res.setHeader('Access-Control-Request-Method', '*')
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
   res.setHeader('Access-Control-Allow-Headers', '*')
-  // res.setHeader('X-Requested-With', 'XMLHttpRequest')
-  // res.setHeader("Access-Control-Allow-Headers", "x-requested-with, x-requested-by")
 
   routing(req, res)
 

@@ -46,9 +46,6 @@ module.exports = {
       title: 'My App',
       template: './index.html',
       favicon: "./favicon.ico"
-    }),
-    new webpack.DefinePlugin({
-      "API_HOST": JSON.stringify(process.env.PORT)
     })
   ]
 };

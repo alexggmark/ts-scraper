@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { render } from 'react-dom'
-import { scraperTest } from './WebScraper'
-import { truncateString } from './utils'
-import './index.css'
+import { webScraper, truncateString } from './utils'
+import './style/index.css'
 import './tailwind.output.css'
-const loader = require('./loader.gif')
+const loader = require('./public/loader.gif')
 
 const blankObject = [
   { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
@@ -32,13 +31,8 @@ const App = () => {
   const filterInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    console.log(`Current port: ${process.env.PORT}`)
     scrapeAndCompile()
   }, [])
-
-  const switchLoading = () => {
-    setLoading(!loading)
-  }
 
   const scrapeAndCompile = async () => {
     setLoading(true)
@@ -47,7 +41,7 @@ const App = () => {
       counterCache++
       setCounter(counterCache)
     }, 1000)
-    const scrapeResults = await scraperTest()
+    const scrapeResults = await webScraper()
     const results = JSON.parse(scrapeResults)
     setArticlesCache(results)
     setArticles(results)

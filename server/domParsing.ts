@@ -46,7 +46,12 @@ function domContentPromise(link: string, content: string): Promise<string | null
   })
 }
 
-export default async function domParser(body: string, link: string, title: string, content: string): Promise<DataStructure[]> {
+export default async function domParser(
+  body: string,
+  link: string,
+  title: string,
+  content: string
+): Promise<DataStructure[]> {
   const dom = new JSDOM(body)
   const response = dom.window.document.querySelectorAll(link)
   const hrefStore: string[] = []
@@ -68,13 +73,6 @@ export default async function domParser(body: string, link: string, title: strin
         })
     })
   }))
-
-  console.log('Finished?')
-  console.log('Finished?')
-  console.log('Finished?')
-  console.log('Finished?')
-  console.log('Finished?')
-  console.log('Finished?')
 
   const result = data.filter(item => item.title !== null)
 
