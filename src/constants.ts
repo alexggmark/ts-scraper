@@ -1,1 +1,6 @@
-export const API_URL = `http://localhost:${process.env.PORT || '4000'}`
+let url = 'http://localhost:4000'
+if (process.env.NODE_ENV === 'production') {
+  url = ''
+}
+
+export const API_URL = url
