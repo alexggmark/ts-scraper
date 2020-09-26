@@ -11,10 +11,10 @@ const isDev = process.env.NODE_ENV !== 'production'
 // const port: number = Number(process.env.PORT) || 3000
 const serverPort = Number(process.env.PORT) || 4000
 
-const options = {
+const options = isDev ? {
   key: fs.readFileSync(__dirname + '/server.key'),
   cert: fs.readFileSync(__dirname + '/server.cert')
-};
+} : {};
 
 // const options = isDev ? {
 //   key: fs.readFileSync(__dirname + '/server.key'),
@@ -31,6 +31,13 @@ const options = {
 // }).listen(port, () => {
 //   console.log('Running CORS Anywhere on ' + port)
 // })
+
+// http.createServer(s(req, res) => {
+//   res.end('TEST')
+// }).listen(4000, () => {
+//   console.log('Working')
+// })
+// return;
 
 https.createServer(options, (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
