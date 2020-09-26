@@ -33,7 +33,7 @@ const App = () => {
   const filterInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    console.log(`Current port: ${process.env.PORT}`)
+    console.log(`Current port: ${process.env.SERVER_PORT}`)
     scrapeAndCompile()
   }, [])
 
