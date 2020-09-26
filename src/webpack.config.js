@@ -48,7 +48,7 @@ module.exports = {
       favicon: "./favicon.ico"
     }),
     new webpack.DefinePlugin({
-      "process.env.PORT": JSON.stringify(process.env.PORT)
+      "API_HOST": JSON.stringify(process.env.PORT)
     })
   ]
 };
