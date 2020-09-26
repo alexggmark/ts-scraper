@@ -7,36 +7,7 @@ import dotenv from 'dotenv'
 import routing from './routing'
 dotenv.config()
 
-const isDev = process.env.NODE_ENV !== 'production'
-// const port: number = Number(process.env.PORT) || 3000
 const serverPort = Number(process.env.PORT) || 4000
-
-// const options = isDev ? {
-//   key: fs.readFileSync(__dirname + '/server.key'),
-//   cert: fs.readFileSync(__dirname + '/server.cert')
-// } : {};
-
-// const options = isDev ? {
-//   key: fs.readFileSync(__dirname + '/server.key'),
-//   cert: fs.readFileSync(__dirname + '/server.cert')
-// } : {};
-
-/**
- * This is CORS anywhere server code, I wanted to run this on own server, but
- * unfortunately need to use CDN because of Heroku's limitations
- */
-// corsAnywhere.createServer(options, {
-//   originWhitelist: [],
-//   removeHeaders: ['cookie', 'cookie2']
-// }).listen(port, () => {
-//   console.log('Running CORS Anywhere on ' + port)
-// })
-
-// http.createServer((req, res) => {
-//   res.end('TEST')
-// }).listen(serverPort, () => {
-//   console.log('Working')
-// })
 
 http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
