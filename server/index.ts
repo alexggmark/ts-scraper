@@ -27,12 +27,6 @@ const options = isDev ? {
 //   console.log('Running CORS Anywhere on ' + port)
 // })
 
-function handleError(object) {
-  object.on('error', (err) => {
-    console.log(err)
-  })
-}
-
 https.createServer(options, (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 	res.setHeader('Access-Control-Request-Method', '*')
@@ -76,7 +70,6 @@ https.createServer(options, (req, res) => {
     console.log(path.join(__dirname, '/src/dist/bundle.js'))
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/index.html'))
     res.writeHead(200, {'Content-type': 'text/html'})
-    handleError(readStream)
     readStream.pipe(res)
   }
 
@@ -84,7 +77,6 @@ https.createServer(options, (req, res) => {
     console.log('REQ: style')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/style.css'))
     res.writeHead(200, {'Content-type': 'text/html'})
-    handleError(readStream)
     readStream.pipe(res)
   }
 
@@ -92,7 +84,6 @@ https.createServer(options, (req, res) => {
     console.log('REQ: bundle')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/bundle.js'))
     res.writeHead(200, {'Content-type': 'text/html'})
-    handleError(readStream)
     readStream.pipe(res)
   }
 
@@ -100,7 +91,6 @@ https.createServer(options, (req, res) => {
     console.log('REQ: favicon')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/favicon.ico'))
     res.writeHead(200, {'Content-type': 'text/html'})
-    handleError(readStream)
     readStream.pipe(res)
   }
 
