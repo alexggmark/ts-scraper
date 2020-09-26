@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
 
 module.exports = {
   entry: './index.tsx',
@@ -45,6 +46,9 @@ module.exports = {
       title: 'My App',
       template: './index.html',
       favicon: "./favicon.ico"
+    }),
+    new webpack.DefinePlugin({
+      "process.env.PORT": JSON.stringify(process.env.PORT)
     })
   ]
 };

@@ -31,8 +31,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --https",
-    "build": "webpack",
-    "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css"
+    "build": "npm run build:tailwind && webpack",
+    "build:tailwind": "tailwindcss build tailwind.css -o tailwind.output.css"
   },
   "repository": {
     "type": "git",

@@ -10,7 +10,7 @@
     "watch-ts": "tsc -w",
     "watch": "concurrently \"npm run watch-ts\" \"npm run watch-node\" --https",
     "tsc": "tsc",
-    "heroku-postbuild": "cd src && npm install && SERVER_PORT=$PORT npm run build",
+    "heroku-postbuild": "cd src && npm install && npm run build",
     "postinstall": "npm run tsc"
   },
   "keywords": [],
