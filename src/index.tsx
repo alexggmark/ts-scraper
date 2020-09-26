@@ -4,7 +4,6 @@ import { scraperTest } from './WebScraper'
 import { truncateString } from './utils'
 import './index.css'
 import './tailwind.output.css'
-// import * as loader from './loader.gif'
 const loader = require('./loader.gif')
 
 const blankObject = [
@@ -33,7 +32,7 @@ const App = () => {
   const filterInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    console.log(`Current port: ${API_HOST}`)
+    console.log(`Current port: ${process.env.PORT}`)
     scrapeAndCompile()
   }, [])
 
