@@ -6,6 +6,7 @@
   "dependencies": {
     "cors-anywhere": "^0.4.3",
     "css-loader": "^4.3.0",
+    "dotenv": "^8.2.0",
     "es6-promise": "^4.2.8",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.3.0",
