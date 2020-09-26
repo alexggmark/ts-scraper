@@ -1,7 +1,7 @@
 import * as http from 'http'
 import domParser from './domParsing'
 import {
-  CORS_URL
+  CORS_HOST
 } from './constants'
 
 const sourceObject = [
@@ -10,7 +10,7 @@ const sourceObject = [
     domHeading: '.gs-c-promo-heading',
     domTitle: '.gs-c-promo-heading__title',
     domContentText: '.story-body__inner > p',
-    url: `${CORS_URL}/https://www.bbc.co.uk/news`
+    url: 'https://www.bbc.co.uk/news'
   }
 ]
 
@@ -18,10 +18,22 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
   sourceObject.map((item) => {
     if (req.url !== item.route) { return }
 
-    http.get(item.url, (response: http.IncomingMessage) => {
+    const options = {
+      host: CORS_HOST,
+      path: `/${item.url}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    }
+
+    http.get(options, (response: http.IncomingMessage) => {
       response.setEncoding('utf8')
+
       let body = ''
       response.on('data', (chunk: string) => {
+        console.log('### DATA OUTPUT')
+        console.log(chunk)
         body += chunk
       })
       response.on('end', async () => {

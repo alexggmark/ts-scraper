@@ -1,1 +1,1 @@
-export const CORS_URL = 'https://cors-anywhere.herokuapp.com/'
+export const CORS_HOST = 'cors-anywhere.herokuapp.com'

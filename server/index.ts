@@ -1,6 +1,4 @@
-// import * as corsAnywhere from 'cors-anywhere'
 import * as http from 'http'
-// import * as https from 'https'
 import * as path from 'path'
 import * as fs from 'fs'
 import dotenv from 'dotenv'
@@ -13,7 +11,10 @@ http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 	res.setHeader('Access-Control-Request-Method', '*')
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
-	res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  // res.setHeader('X-Requested-With', 'XMLHttpRequest')
+  // res.setHeader("Access-Control-Allow-Headers", "x-requested-with, x-requested-by")
+
   routing(req, res)
 
   /**
@@ -56,8 +57,6 @@ http.createServer((req, res) => {
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)
   }
-
-  // fs.readFile()
 }).listen(serverPort, () => {
   console.log('Running HTTP Server ' + serverPort)
 })

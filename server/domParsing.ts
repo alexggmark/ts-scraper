@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom'
 import * as http from 'http'
 import {
-  CORS_URL
+  CORS_HOST
 } from './constants'
 
 interface DataStructure {
@@ -18,7 +18,16 @@ const emptyNulls = {
 
 function domContentPromise(link: string, content: string): Promise<string | null> {
   return new Promise((resolve) => {
-    http.get(`${CORS_URL}/https://www.bbc.co.uk${link}`, (response: http.IncomingMessage) => {
+    const options = {
+      host: CORS_HOST,
+      path: `/https://www.bbc.co.uk${link}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    }
+
+    http.get(options, (response: http.IncomingMessage) => {
       response.setEncoding('utf8')
       let body = ''
       let domContentString = ''

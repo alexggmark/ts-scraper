@@ -4,9 +4,15 @@ import {
 
 export async function scraperTest(): Promise<string> {
   try {
-    const response = await fetch(`${API_URL}/bbc`)
+    console.log(`Running scrape: ${API_URL}/bbc`)
+    console.log('Test 1')
+    const response = await fetch(`${API_URL}/bbc`, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
     const text = await response.text()
-    console.log(JSON.parse(text))
+    console.log(text)
     return text
   } catch (err) {
     console.log(err)
