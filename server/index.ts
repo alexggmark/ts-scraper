@@ -1,5 +1,5 @@
 // import * as corsAnywhere from 'cors-anywhere'
-// import * as http from 'http'
+import * as http from 'http'
 import * as https from 'https'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -11,10 +11,15 @@ const isDev = process.env.NODE_ENV !== 'production'
 // const port: number = Number(process.env.PORT) || 3000
 const serverPort = Number(process.env.PORT) || 4000
 
-const options = isDev ? {
+const options = {
   key: fs.readFileSync(__dirname + '/server.key'),
   cert: fs.readFileSync(__dirname + '/server.cert')
-} : {};
+};
+
+// const options = isDev ? {
+//   key: fs.readFileSync(__dirname + '/server.key'),
+//   cert: fs.readFileSync(__dirname + '/server.cert')
+// } : {};
 
 /**
  * This is CORS anywhere server code, I wanted to run this on own server, but
