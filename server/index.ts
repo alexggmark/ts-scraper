@@ -60,6 +60,11 @@ https.createServer(options, (req, res) => {
   //   res.end(data)
   // })
 
+  /**
+   * This is unbelievably unelegant, but for the sake of getting this working
+   * without Express and with Heroku limitations, this is quickest method
+   */
+
   if (req.url == '/') {
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/index.html'))
     res.writeHead(200, {'Content-type': 'text/html'})
@@ -74,6 +79,12 @@ https.createServer(options, (req, res) => {
 
   if (req.url == '/bundle.js') {
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/bundle.js'))
+    res.writeHead(200, {'Content-type': 'text/html'})
+    readStream.pipe(res)
+  }
+
+  if (req.url == '/favicon.ico') {
+    const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/favicon.ico'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)
   }
