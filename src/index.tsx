@@ -195,7 +195,7 @@ const App = () => {
                   <div className="px-4 py-3">
                     <p className="text-lg">{item.title}</p>
                     <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
-                    <div className="w-full flex pt-4 justify-end align-middle h-10">
+                    <div className="w-full flex pt-4 justify-end align-middle h-8">
                       <LogoDisplay route={item.source} />
                     </div>
                   </div>
