@@ -1,18 +1,9 @@
 import * as http from 'http'
 import domParser from './domParsing'
+import { sourceObject } from './sourceObject'
 import {
   CORS_HOST
 } from './constants'
-
-const sourceObject = [
-  {
-    route: '/bbc',
-    domHeading: '.gs-c-promo-heading',
-    domTitle: '.gs-c-promo-heading__title',
-    domContentText: '.story-body__inner > p',
-    url: 'https://www.bbc.co.uk/news'
-  }
-]
 
 const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
   sourceObject.map((item) => {
@@ -20,7 +11,7 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
 
     const options = {
       host: CORS_HOST,
-      path: `/${item.url}`,
+      path: `/${item.scrapeUrl}`,
       headers: {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest'
@@ -39,7 +30,8 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
           body,
           item.domHeading,
           item.domTitle,
-          item.domContentText
+          item.domContentText,
+          item.rawUrl
         )
         res.end(JSON.stringify(fetchResult))
       })

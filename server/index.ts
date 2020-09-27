@@ -21,36 +21,31 @@ http.createServer((req, res) => {
    */
 
   if (req.url == '/') {
-    console.log('REQ: /')
-    console.log(path.join(__dirname, '/src/dist/bundle.js'))
+    // console.log(path.join(__dirname, '/src/dist/bundle.js'))
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/index.html'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)
   }
 
   if (req.url == '/style.css') {
-    console.log('REQ: style')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/style.css'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)
   }
 
   if (req.url == '/bundle.js') {
-    console.log('REQ: bundle')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/bundle.js'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)
   }
 
   if (req.url == '/favicon.ico') {
-    console.log('REQ: favicon')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/favicon.ico'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)
   }
 
   if (req.url == '/505f876506e853fff8022de9e0384052.gif') {
-    console.log('REQ: image')
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/505f876506e853fff8022de9e0384052.gif'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)

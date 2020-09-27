@@ -1,25 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { render } from 'react-dom'
-import { webScraper, truncateString } from './utils'
+import { webScraper, truncateString } from './utils/index'
 import './style/index.css'
 import './tailwind.output.css'
 const loader = require('./public/loader.gif')
 
 const blankObject = [
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' },
-  { url: 'sdfds', title: 'dsfsdf', content: 'sdfdsfsdf sdfdsfds' }
+  { url: 'sdfds', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
+  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' }
 ]
 
 const App = () => {
@@ -187,11 +187,12 @@ const App = () => {
                 key={index}
               >
                 <a
-                  href={`https://www.bbc.co.uk${item.url}`}
+                  href={`${item.rawUrl}${item.url}`}
                 >
                   <div className="px-4 py-3">
                     <p className="text-lg">{item.title}</p>
                     <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
+                    <h3>SOURCE: {item.source}</h3>
                   </div>
                 </a>
               </div>

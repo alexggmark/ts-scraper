@@ -1,9 +1,10 @@
 import {
   API_URL
-} from '../constants'
+} from '../constants/index'
 
 export async function webScraper(): Promise<string> {
   try {
+    console.log(`API URL: ${API_URL}`)
     const response = await fetch(`${API_URL}/bbc`)
     const text = await response.text()
     console.log(text)
