@@ -7,24 +7,24 @@ import './tailwind.output.css'
 const loader = require('./public/loader.gif')
 
 const blankObject = [
-  { url: 'sdfds', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' },
-  { url: 'Labren', title: 'Azerbaijan and Armenia clash over disputed region', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: 'My arse' }
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'sdfds', title: '1 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '2 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '3 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '4 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '5 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '6 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '7 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '8 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '9 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '10 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '11 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '12 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '13 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
+  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '14 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' }
 ]
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [counter, setCounter] = useState(0)
   const [articles, setArticles] = useState([])
   const [articlesCache, setArticlesCache] = useState([])
@@ -163,16 +163,17 @@ const App = () => {
       </section>
       {loading ? (
         <div className="w-full text-center px-3">
-          <p className="text-lg text-red-500">Scraping news sites and building list {counter}s</p>
-          <p className="text-xs text-gray-500">This can take up to 30 seconds</p>
+          <p className="text-lg text-red-500">Scraping BBC News and The Guardian {counter}s</p>
+          <p className="text-xs text-gray-500">This can take up to 60 seconds</p>
         </div>
       ) : (
         <div className="px-2">
           {articles.map((item, index) => {
-          // {blankObject.map((item, index) => {
+          {/* {sortApiResponse(blankObject).map((item, index) => { */}
             return (
               <div
                 className="
+                  news-item-block
                   transition
                   duration-100
                   ease-in-out
@@ -184,7 +185,6 @@ const App = () => {
                   shadow-sm
                   transform
                   hover:bg-red-500
-                  hover:text-white
                   hover:translate-x-1
                 "
                 key={index}

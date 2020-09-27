@@ -2,3 +2,7 @@ body {
   background-color: #f7fafc;
   overflow-x: hidden;
 }
+
+.news-item-block:hover p {
+  color: #ffffff!important;
+}
