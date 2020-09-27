@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { render } from 'react-dom'
 import { webScraper, truncateString } from './utils/index'
+import LogoDisplay from './components/LogoDisplay'
 import './style/index.css'
 import './tailwind.output.css'
 const loader = require('./public/loader.gif')
@@ -43,6 +44,8 @@ const App = () => {
     }, 1000)
     const scrapeResults = await webScraper()
     const results = JSON.parse(scrapeResults)
+    console.log('Parsed results')
+    console.log(results)
     setArticlesCache(results)
     setArticles(results)
     setCounter(0)
@@ -192,7 +195,9 @@ const App = () => {
                   <div className="px-4 py-3">
                     <p className="text-lg">{item.title}</p>
                     <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
-                    <h3>SOURCE: {item.source}</h3>
+                    <div className="w-full flex pt-4 justify-end align-middle h-10">
+                      <LogoDisplay route={item.source} />
+                    </div>
                   </div>
                 </a>
               </div>

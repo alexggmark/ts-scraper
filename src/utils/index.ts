@@ -4,11 +4,13 @@ import {
 
 export async function webScraper(): Promise<string> {
   try {
-    console.log(`API URL: ${API_URL}`)
-    const response = await fetch(`${API_URL}/bbc`)
-    const text = await response.text()
-    console.log(text)
-    return text
+    const scrapeBBC = await fetch(`${API_URL}/bbc`)
+    const responseBBC = await scrapeBBC.json()
+    const scrapeGuardian = await fetch(`${API_URL}/guardian`)
+    const responseGuardian = await scrapeGuardian.json()
+
+    const response = [...responseGuardian, ...responseBBC]
+    return JSON.stringify(response)
   } catch (err) {
     console.log(err)
     return new Promise(reject => reject)
