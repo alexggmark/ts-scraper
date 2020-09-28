@@ -1,3 +1,10 @@
+/**
+ * @property {string} route - API route slug
+ * @property {string} domHeading - selector: scrape page main link selector
+ * @property {string | null} domTitle - selector: main article HTML containers/structure
+ * @property {string} scrapeUrl - full URL to be scraped on load
+ * @property {string} rawUrl - base URL for scrape request
+ */
 export const sourceObject = [
   {
     route: '/bbc',

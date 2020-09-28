@@ -4,24 +4,9 @@ import { webScraper, truncateString } from './utils/index'
 import LogoDisplay from './components/LogoDisplay'
 import './style/index.css'
 import './tailwind.output.css'
-const loader = require('./public/loader.gif')
 
-const blankObject = [
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'sdfds', title: '1 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '2 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '3 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '4 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '5 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '6 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '7 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '8 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '9 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '10 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '11 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '12 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '13 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/bbc' },
-  { rawUrl: 'https://www.bbc.co.uk/', url: 'Labren', title: '14 Azerbaijan and Armenia clash over disputed region and also my mum says you can\'t have any of my chips they\'re mine and I paid for them in full!', content: 'Labren Azerbaijan and Armenia clash over disputed region Labren', source: '/guardian' }
-]
+// CommonJS to allows image import more easily
+const loader = require('./public/loader.gif')
 
 const App = () => {
   const [loading, setLoading] = useState(false)
@@ -31,10 +16,16 @@ const App = () => {
   const [blockedCounter, setBlockedCounter] = useState(0)
   const filterInput = useRef<HTMLInputElement>(null)
 
+  /**
+   * Fetch API results on first load
+   */
   useEffect(() => {
     scrapeAndCompile()
   }, [])
 
+  /**
+   * Set loading state, start counter, await API results and send to state
+   */
   const scrapeAndCompile = async () => {
     setLoading(true)
     let counterCache = 0
@@ -52,6 +43,10 @@ const App = () => {
     setLoading(false)
   }
 
+  /**
+   * Manually filter articles array
+   * @param string - Input string from ref=filterInput
+   */
   const filterResults = (string: string) => {
     const searchString = string.toLowerCase()
     const filteredArticles = articlesCache.filter((item) => {
@@ -63,6 +58,9 @@ const App = () => {
     setArticles(filteredArticles)
   }
 
+  /**
+   * Reset article state if no search input, filter results with value otherwise
+   */
   const handleInput = () => {
     const input = filterInput.current.value
     if (input === '') {
@@ -75,7 +73,6 @@ const App = () => {
 
   return (
     <div className="bg-gray-100">
-      {/* <button className="p-5" onClick={switchLoading}>SWITCH</button> */}
       <header
         className="
           max-w-100
@@ -169,7 +166,6 @@ const App = () => {
       ) : (
         <div className="px-2">
           {articles.map((item, index) => {
-          {/* {sortApiResponse(blankObject).map((item, index) => { */}
             return (
               <div
                 className="

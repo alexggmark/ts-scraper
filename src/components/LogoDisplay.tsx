@@ -7,6 +7,10 @@ interface LogoProps {
   route: string
 }
 
+/**
+ * Runs switch on route to product correct image response
+ * @param props - takes route prop as string
+ */
 const LogoDisplay = (props: LogoProps) => {
   const switcher = (): string => {
     switch (props.route) {

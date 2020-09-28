@@ -7,6 +7,10 @@ import {
 
 const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
   sourceObject.map((item) => {
+
+    /**
+     * Skip step if request URL doesn't match route
+     */
     if (req.url !== item.route) { return }
 
     const options = {
@@ -18,6 +22,10 @@ const routing = (req: http.IncomingMessage, res: http.ServerResponse): void => {
       }
     }
 
+    /**
+     * Make http.get request to cors-anywhere/scraperURL address, chunk results
+     * and send to domParser for further scraping/compiling
+     */
     http.get(options, (response: http.IncomingMessage) => {
       response.setEncoding('utf8')
 

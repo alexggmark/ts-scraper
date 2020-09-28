@@ -13,15 +13,18 @@ http.createServer((req, res) => {
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
   res.setHeader('Access-Control-Allow-Headers', '*')
 
+  /**
+   * Set up routes for API requests
+   */
   routing(req, res)
 
   /**
    * This is unbelievably unelegant, but for the sake of getting this working
    * without Express and with Heroku limitations, this is quickest method
+   * - Checks for each URL request and produces specific static content
+   * - Manually checked to prevent overlap with API's routes
    */
-
   if (req.url == '/') {
-    // console.log(path.join(__dirname, '/src/dist/bundle.js'))
     const readStream = fs.createReadStream(path.join(__dirname, '/src/dist/index.html'))
     res.writeHead(200, {'Content-type': 'text/html'})
     readStream.pipe(res)

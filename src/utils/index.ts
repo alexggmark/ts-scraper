@@ -3,6 +3,10 @@ import {
 } from '../constants/index'
 import { ApiResponse } from '../interfaces/apiResponse'
 
+/**
+ * Randomise array in order to shuffle results - quick fix
+ * @param array - Api response object array
+ */
 export const sortApiResponse = (array: ApiResponse[]): ApiResponse[] => {
   let current = array.length
   let randomIndex
@@ -19,6 +23,10 @@ export const sortApiResponse = (array: ApiResponse[]): ApiResponse[] => {
   return array
 }
 
+/**
+ * Make request to server API, manually collect different route results
+ * Returns stringified object to be parsed as JSON
+ */
 export const webScraper = async (): Promise<string> => {
   try {
     const scrapeBBC = await fetch(`${API_URL}/bbc`)
@@ -34,6 +42,11 @@ export const webScraper = async (): Promise<string> => {
   }
 }
 
+/**
+ * Quick truncation method
+ * @param text
+ * @param limit
+ */
 export const truncateString = (text: string, limit: number): string => {
   return text.slice(0, limit)
 }

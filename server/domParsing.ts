@@ -2,18 +2,16 @@ import { JSDOM } from 'jsdom'
 import * as http from 'http'
 import { removeRawUrlFromFullUrl } from './utils'
 import { sourceObject } from './sourceObject'
+import DataStructure from './interfaceDataStructure'
 import {
   CORS_HOST
 } from './constants'
 
-interface DataStructure {
-  rawUrl: string | null,
-  title: string | null,
-  url: string | null,
-  content: string | null,
-  source: string | null
-}
-
+/**
+ * Still need to determine better way to do this with TS, current used to return
+ * object which aligns with DataStructure interface - used to create empty
+ * results to be filtered out, without breaking map
+ */
 const emptyNulls = {
   rawUrl: null,
   title: null,
@@ -22,10 +20,14 @@ const emptyNulls = {
   source: null
 }
 
+/**
+ * Scrapes each link given and runs JSOM on results to querySelectorAll over
+ * relevant HTML elements to produce content
+ * @param link - main article link for scraping
+ * @param content - selector: main article content select "... > p"
+ * @param rawUrl - base URL for properly formatted scraping
+ */
 function domContentPromise(link: string, content: string, rawUrl: string): Promise<string | null> {
-  console.log(`CORS_HOST: ${CORS_HOST}`)
-  console.log(`rawUrl: ${rawUrl}`)
-  console.log(`link: ${link}`)
   return new Promise((resolve) => {
     const options = {
       host: CORS_HOST,
@@ -55,6 +57,16 @@ function domContentPromise(link: string, content: string, rawUrl: string): Promi
   })
 }
 
+/**
+ * Runs JSDOM on scrape results to produce querySelector-able HTML elements,
+ * runs async map on each link item, then runs domContentPromise scrape on each
+ * to collect actual page content
+ * @param body - initial landing page scrape HTML
+ * @param link - selector: all main article links on site
+ * @param title - selector: item object nested inside link
+ * @param content - selector: main article content
+ * @param rawUrl - base URL for request site
+ */
 export default async function domParser(
   body: string,
   link: string,
@@ -66,6 +78,9 @@ export default async function domParser(
   const response = dom.window.document.querySelectorAll(link)
   const hrefStore: string[] = []
 
+  /**
+   * Running async map to await scrape results for each link
+   */
   const data = await Promise.all(Object.keys(response).map((key) => {
     return new Promise<DataStructure>((resolve) => {
       if (!response[key].href || typeof response[key].href === 'undefined' || hrefStore.find((item) => item === response[key].href)) {
@@ -73,6 +88,10 @@ export default async function domParser(
         return
       }
       hrefStore.push(response[key].href)
+
+      /**
+       * Runs domContentPromise on each main article URL to return full data
+       */
       domContentPromise(response[key].href, content, rawUrl)
         .then((res) => {
           console.log(res?.slice(0, 20))
@@ -90,6 +109,9 @@ export default async function domParser(
     })
   }))
 
+  /**
+   * Filters empty response objects set by emptyNulls
+   */
   const result = data.filter(item => item.title !== null)
 
   return result
