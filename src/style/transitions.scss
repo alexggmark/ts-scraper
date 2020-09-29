@@ -1,24 +1,106 @@
 .loading-trans {
+  $parent: &;
+
   &-appear {
-    opacity: 0;
+    opacity: 1;
+
+    #{$parent}__image {
+      border-radius: 100%;
+      transform: scale(0);
+    }
+
+    #{$parent}__shape {
+      transform: scale(0);
+    }
+
+    #{$parent}__shape-background {
+      transform: scale(0);
+    }
+
+    #{$parent}__text {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
   }
 
   &-appear-done {
+    #{$parent}__image {
+      border-radius: 0;
+      transform: scale(1);
+      transition: transform 0.6s ease, border-radius 0.3s ease;
+    }
+
+    #{$parent}__shape {
+      transform: scale(1);
+      transition: transform 0.9s ease;
+    }
+
+    #{$parent}__shape-background {
+      transform: scale(1);
+      transition: transform 1.2s ease;
+    }
+
+    #{$parent}__text {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.8s ease, opacity 1s ease;
+      transition-delay: 0.4s;
+    }
+  }
+
+  &-exit {
     opacity: 1;
-    transition: opacity 2s ease;
+
+    #{$parent}__image {
+      border-radius: 0;
+      transform: scale(1.1);
+      transition: transform 0.2s ease, border-radius 0.3s ease;
+    }
+
+    #{$parent}__shape {
+      transform: scale(1);
+      transition: transform 0.9s ease;
+    }
+
+    #{$parent}__shape-background {
+      transform: scale(1);
+      transition: transform 1.2s ease;
+    }
+
+    #{$parent}__text {
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
   }
 
   &-exit-active {
-    opacity: 1;
-  }
-
-  &-exit-done {
     opacity: 0;
-    transition: opacity 2s ease;
+    transition: opacity 2.5s ease;
+    transition-delay: 1s;
+
+    #{$parent}__image {
+      border-radius: 0;
+      transform: scale(0);
+      transition: transform 0.6s ease, border-radius 0.3s ease;
+    }
+
+    #{$parent}__shape {
+      transform: scale(0);
+    }
+
+    #{$parent}__shape-background {
+      transform: scale(0);
+    }
+
+    #{$parent}__text {
+      opacity: 0;
+    }
   }
 }
 
 .main-trans {
+  $parent: &;
+
   &-enter-active {
     opacity: 0;
   }

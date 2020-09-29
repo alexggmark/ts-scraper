@@ -13,7 +13,6 @@ const loader = require('./public/loader.gif')
 
 const App = () => {
   const [loading, setLoading] = useState(true)
-  const [counter, setCounter] = useState(0)
   const [articles, setArticles] = useState([])
   const [articlesCache, setArticlesCache] = useState([])
   const [blockedCounter, setBlockedCounter] = useState(0)
@@ -23,31 +22,20 @@ const App = () => {
    * Fetch API results on first load
    */
   useEffect(() => {
-    // scrapeAndCompile()
+    scrapeAndCompile()
   }, [])
-
-  const switchLoad = () => {
-    setLoading(!loading)
-    console.log(loading)
-  }
 
   /**
    * Set loading state, start counter, await API results and send to state
    */
   const scrapeAndCompile = async () => {
     setLoading(true)
-    let counterCache = 0
-    setInterval(() => {
-      counterCache++
-      setCounter(counterCache)
-    }, 1000)
     const scrapeResults = await webScraper()
     const results = JSON.parse(scrapeResults)
     console.log('Parsed results')
     console.log(results)
     setArticlesCache(results)
     setArticles(results)
-    setCounter(0)
     setLoading(false)
   }
 
@@ -81,12 +69,12 @@ const App = () => {
 
   return (
     <>
-      <button onClick={switchLoad}>Click</button>
       <CSSTransition
         in={loading}
         appear={true}
         classNames="loading-trans"
         timeout={300}
+        unmountOnExit
       >
         <Loading />
       </CSSTransition>
@@ -95,7 +83,7 @@ const App = () => {
         timeout={300}
         classNames="main-trans"
       >
-        <div className="bg-gray-100">
+        <div className="main-trans bg-gray-100">
           <header
             className="
               max-w-100
@@ -137,11 +125,6 @@ const App = () => {
                 mb-6
               "
             >
-
-                {/* <div className="w-full flex justify-center">
-                  <img className="w-16" src={loader.default} />
-                </div> */}
-
               <div className="w-full md:w-7/12 md:pr-2">
                 <input
                   className="
