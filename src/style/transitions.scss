@@ -1,0 +1,30 @@
+.loading-trans {
+  &-appear {
+    opacity: 0;
+  }
+
+  &-appear-done {
+    opacity: 1;
+    transition: opacity 2s ease;
+  }
+
+  &-exit-active {
+    opacity: 1;
+  }
+
+  &-exit-done {
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+}
+
+.main-trans {
+  &-enter-active {
+    opacity: 0;
+  }
+
+  &-enter-done {
+    opacity: 1;
+    transition: opacity 2s ease;
+  }
+}

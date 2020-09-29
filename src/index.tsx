@@ -2,14 +2,17 @@ import React, { useEffect, useState, useRef } from 'react'
 import { render } from 'react-dom'
 import { webScraper, truncateString } from './utils/index'
 import LogoDisplay from './components/LogoDisplay'
-import './style/index.css'
+import './style/index.scss'
 import './tailwind.output.css'
+import './style/transitions.scss'
+import Loading from './components/Loading'
+import { CSSTransition } from 'react-transition-group';
 
 // CommonJS to allows image import more easily
 const loader = require('./public/loader.gif')
 
 const App = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [counter, setCounter] = useState(0)
   const [articles, setArticles] = useState([])
   const [articlesCache, setArticlesCache] = useState([])
@@ -20,8 +23,13 @@ const App = () => {
    * Fetch API results on first load
    */
   useEffect(() => {
-    scrapeAndCompile()
+    // scrapeAndCompile()
   }, [])
+
+  const switchLoad = () => {
+    setLoading(!loading)
+    console.log(loading)
+  }
 
   /**
    * Set loading state, start counter, await API results and send to state
@@ -72,54 +80,68 @@ const App = () => {
   }
 
   return (
-    <div className="bg-gray-100">
-      <header
-        className="
-          max-w-100
-          bg-gray-900
-          p-6
-        "
+    <>
+      <button onClick={switchLoad}>Click</button>
+      <CSSTransition
+        in={loading}
+        appear={true}
+        classNames="loading-trans"
+        timeout={300}
       >
-        <h1
-          className="
-            text-white
-            text-3xl
-            text-center
-            font-serif
-            font-thin
-          "
-        >
-          NewsWith<span className="text-red-500">out.</span>
-        </h1>
-      </header>
-      <section
-        className={`
-          max-w-100
-          transition-colors
-          duration-200
-          ${loading ? 'bg-white' : 'bg-gray-600'}
-        `}
+        <Loading />
+      </CSSTransition>
+      <CSSTransition
+        in={!loading}
+        timeout={300}
+        classNames="main-trans"
       >
-        <div
-          className="
-            max-w-3xl
-            mx-auto
-            flex
-            flex-col-reverse
-            md:flex-row
-            items-center
-            py-3
-            px-2
-            md:px-0
-            mb-6
-          "
-        >
-          {loading ? (
-            <div className="w-full flex justify-center">
-              <img className="w-16" src={loader.default} />
-            </div>
-          ) : (
-            <>
+        <div className="bg-gray-100">
+          <header
+            className="
+              max-w-100
+              bg-gray-900
+              p-6
+            "
+          >
+            <h1
+              className="
+                text-white
+                text-3xl
+                text-center
+                font-serif
+                font-thin
+              "
+            >
+              NewsWith<span className="text-red-500">out.</span>
+            </h1>
+          </header>
+          <section
+            className={`
+              max-w-100
+              transition-colors
+              duration-200
+              bg-gray-600
+            `}
+          >
+            <div
+              className="
+                max-w-3xl
+                mx-auto
+                flex
+                flex-col-reverse
+                md:flex-row
+                items-center
+                py-3
+                px-2
+                md:px-0
+                mb-6
+              "
+            >
+
+                {/* <div className="w-full flex justify-center">
+                  <img className="w-16" src={loader.default} />
+                </div> */}
+
               <div className="w-full md:w-7/12 md:pr-2">
                 <input
                   className="
@@ -154,54 +176,48 @@ const App = () => {
                   <p><span className="text-lg font-bold">Blocking: {blockedCounter} items</span></p>
                 </div>
               </div>
-            </>
-          )}
-        </div>
-      </section>
-      {loading ? (
-        <div className="w-full text-center px-3">
-          <p className="text-lg text-red-500">Scraping BBC News and The Guardian {counter}s</p>
-          <p className="text-xs text-gray-500">This can take up to 60 seconds</p>
-        </div>
-      ) : (
-        <div className="px-2">
-          {articles.map((item, index) => {
-            return (
-              <div
-                className="
-                  news-item-block
-                  transition
-                  duration-100
-                  ease-in-out
-                  max-w-3xl
-                  mx-auto
-                  my-2
-                  bg-white
-                  rounded-sm
-                  shadow-sm
-                  transform
-                  hover:bg-red-500
-                  hover:translate-x-1
-                "
-                key={index}
-              >
-                <a
-                  href={`${item.rawUrl}${item.url}`}
+            </div>
+          </section>
+
+          <div className="px-2">
+            {articles.map((item, index) => {
+              return (
+                <div
+                  className="
+                    news-item-block
+                    transition
+                    duration-100
+                    ease-in-out
+                    max-w-3xl
+                    mx-auto
+                    my-2
+                    bg-white
+                    rounded-sm
+                    shadow-sm
+                    transform
+                    hover:bg-red-500
+                    hover:translate-x-1
+                  "
+                  key={index}
                 >
-                  <div className="px-4 py-3">
-                    <p className="text-lg">{item.title}</p>
-                    <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
-                    <div className="w-full flex pt-4 justify-end align-middle h-8">
-                      <LogoDisplay route={item.source} />
+                  <a
+                    href={`${item.rawUrl}${item.url}`}
+                  >
+                    <div className="px-4 py-3">
+                      <p className="text-lg">{item.title}</p>
+                      <p className="text-sm text-gray-400">{item.content ? `${truncateString(item.content, 200)}...` : 'No preview text'}</p>
+                      <div className="w-full flex pt-4 justify-end align-middle h-8">
+                        <LogoDisplay route={item.source} />
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </div>
-            )
-          })}
+                  </a>
+                </div>
+              )
+            })}
+          </div>
         </div>
-      )}
-    </div>
+      </CSSTransition>
+    </>
   )
 }
 
